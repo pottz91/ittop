@@ -10,7 +10,7 @@ export default function PreviewWindow({ path }: Props): React.JSX.Element {
     void window.api.getSettings().then((settings) => {
       document.documentElement.dataset.theme = settings.theme
     })
-    document.title = `${fileName(path)} — ittop`
+    document.title = `${fileName(path)}: ittop`
   }, [path])
 
   return (

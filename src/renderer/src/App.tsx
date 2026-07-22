@@ -47,7 +47,7 @@ export default function App(): React.JSX.Element {
 
   useEffect(() => {
     const active = workspaces.find((w) => w.id === settings.activeWorkspaceId)
-    document.title = active ? `${active.name} — ittop` : 'ittop'
+    document.title = active ? `${active.name}: ittop` : 'ittop'
   }, [workspaces, settings.activeWorkspaceId])
 
   useEffect(() => {
@@ -276,7 +276,7 @@ export default function App(): React.JSX.Element {
             <div className="empty-main-mark">&gt;_</div>
             <p>No workspaces yet</p>
             <p className="empty-main-sub">
-              A workspace is a named group of terminals — add one, then add terminals to it.
+              A workspace is a named group of terminals. Add one, then add terminals to it.
             </p>
             <button className="primary" onClick={() => setDialogOpen(true)}>
               Create your first workspace

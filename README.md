@@ -1,4 +1,4 @@
-# ittop: Claude Code Desktop App for Windows
+# ittop: Multi-Workspace Manager for Claude Code on Windows
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Platform: Windows](https://img.shields.io/badge/platform-Windows-0078D6.svg)](#prerequisites)
@@ -8,8 +8,9 @@
 
 <p align="center"><img src="docs/demo.gif" alt="ittop demo" width="900"></p>
 
-**Run and manage multiple parallel [Claude Code](https://claude.com/claude-code) sessions on
-Windows, built for vibe coding.** Quick facts:
+**ittop organizes multiple parallel [Claude Code](https://claude.com/claude-code) sessions into
+Workspaces on Windows, built for vibe coding.** It's not a replacement for Claude Code, it's the
+missing layer around it. Quick facts:
 
 - 🪟 **Native Windows app** via ConPTY. No WSL, no `tmux`, no cloud account.
 - 🧩 **Workspaces group Terminals**: each Workspace holds any number of Terminals (own folder +
@@ -77,10 +78,11 @@ hosted/commercial GUI with cloud sync and subscription tiers. ittop is neither:
 ## Prerequisites
 
 - Windows 10/11
-- [Node.js](https://nodejs.org/) 18 or newer
 - [Claude Code CLI](https://claude.com/claude-code) installed and on your `PATH` (the default
   start command for a new workspace is `claude`)
 - Git (optional, only needed for the branch indicator in the sidebar)
+- [Node.js](https://nodejs.org/) 18 or newer, only if you're building from source instead of
+  using the installer
 
 `node-pty` ships prebuilt native binaries (N-API, ABI-stable) for `win32-x64`/`win32-arm64`,
 so a normal `npm install` works out of the box. **No Visual Studio Build Tools required** for
@@ -88,6 +90,14 @@ everyday use. You'd only need them if you ever have to compile `node-pty` from s
 [Troubleshooting](#troubleshooting)).
 
 ## Getting started
+
+**Just want to use it?** Download the installer from [Releases](https://github.com/pottz91/ittop/releases/latest),
+run it, done. `npm install` is only needed if you're building from source.
+
+🛡️ Every installer is scanned with [VirusTotal](https://www.virustotal.com/) right after it's
+built. The report link is posted in that release's notes.
+
+### Build from source (optional)
 
 ```bash
 npm install

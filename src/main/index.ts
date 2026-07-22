@@ -202,7 +202,7 @@ function createPreviewWindow(filePath: string): void {
     height: 800,
     autoHideMenuBar: true,
     backgroundColor: '#1e1e1e',
-    title: `ittop — ${filePath}`,
+    title: `ittop: ${filePath}`,
     icon,
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),

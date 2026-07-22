@@ -1,7 +1,7 @@
 {
   "name": "ittop",
   "version": "1.0.0",
-  "description": "Claude Code desktop app for Windows — run and manage multiple parallel Claude Code sessions with workspaces, live status, and a built-in file preview for vibe coding.",
+  "description": "Multi-workspace manager for Claude Code on Windows: run multiple parallel Claude Code sessions with live status and a built-in file preview, built for vibe coding.",
   "main": "./out/main/index.js",
   "author": "pottz91",
   "license": "MIT",
