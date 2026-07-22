@@ -5,16 +5,18 @@
 
 ![ittop demo](docs/demo.gif)
 
-**ittop is a free, open-source Claude Code desktop app for Windows.** Run and manage multiple
-parallel [Claude Code](https://claude.com/claude-code) sessions, built for **vibe coding** across
-several projects (or several agents on the same project) at once, without juggling a dozen
-terminal windows or a `tmux`/terminal multiplexer setup by hand. Group your terminals into named
-**Workspaces**, watch live status for every session, get a desktop notification the moment one is
-waiting on you, and preview project files without leaving the app.
+**Run and manage multiple parallel [Claude Code](https://claude.com/claude-code) sessions on
+Windows, built for vibe coding.** Quick facts:
 
-Runs natively on Windows via [ConPTY](https://learn.microsoft.com/en-us/windows/console/creating-a-pseudoconsole-session).
-**No WSL, no tmux, no cloud account required.** Everything is local: your sessions, your
-project paths, your data.
+- 🪟 **Native Windows app** via ConPTY. No WSL, no `tmux`, no cloud account.
+- 🧩 **Workspaces group Terminals**: each Workspace holds any number of Terminals (own folder +
+  start command), opened tiled together with one click.
+- 🟢 **Live status per session** + a desktop notification the moment one is waiting on you.
+- 📁 **Built-in file explorer** with Markdown/HTML preview, no alt-tabbing to VS Code.
+- 🎙️ **Works with voice dictation tools** (Wispr Flow, Windows Voice Access, Spokenly, etc.):
+  copy/paste and dictated text land correctly inside Claude Code's own UI.
+- 🎨 5 themes, full backup/restore, auto-updates via GitHub Releases.
+- 🆓 **100% free, open-source, MIT-licensed.** No telemetry, no account, no cloud sync.
 
 ## Screenshots
 
@@ -44,8 +46,12 @@ hosted/commercial GUI with cloud sync and subscription tiers. ittop is neither:
   Opening a Workspace tiles all its Terminals together; other Workspaces keep running in the
   background, mounted but hidden, so switching back never loses scrollback or restarts a session.
 - **Real terminals**: each Terminal gets its own `node-pty` process (ConPTY on Windows),
-  rendered with `xterm.js`. 10,000 lines of scrollback, copy/paste that actually works inside
-  Claude Code's own UI, `Ctrl+F` in-terminal search, drag-to-reorder panes, resizable columns.
+  rendered with `xterm.js`. 10,000 lines of scrollback, `Ctrl+F` in-terminal search,
+  drag-to-reorder panes, resizable columns.
+- **Copy/paste and voice dictation that actually work inside Claude Code's own UI**: fixed a
+  common xterm.js pitfall where `Ctrl+V` gets swallowed before the browser's paste event ever
+  fires, which also silently broke text-injection-based tools like Wispr Flow, Windows Voice
+  Access, and Spokenly.
 - **Status detection**, via two independent signals:
   1. OSC 9 / OSC 777 "attention" escape sequences parsed straight out of the PTY stream.
   2. A tiny localhost HTTP server that Claude Code's `Notification` / `Stop` hooks POST to
