@@ -1,0 +1,13 @@
+node_modules
+out
+dist
+dist-electron
+release
+.DS_Store
+*.log
+graphify-out
+.claude
+playwright-report
+test-results
+*.gif
+!docs/*.gif
