@@ -1,0 +1,37 @@
+appId: com.ittop.app
+productName: ittop
+directories:
+  buildResources: build
+# node-pty ships N-API (ABI-stable) prebuilt binaries for win32, so no native rebuild is
+# needed or possible without Visual Studio Build Tools installed.
+npmRebuild: false
+files:
+  - '!**/.vscode/*'
+  - '!src/*'
+  - '!electron.vite.config.{js,ts,mjs,cjs}'
+  - '!{.eslintignore,.eslintrc.cjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}'
+  - '!{.env,.env.*,.npmrc,pnpm-lock.yaml}'
+asarUnpack:
+  - resources/**
+  - '**/node_modules/node-pty/**'
+win:
+  executableName: ittop
+  target: nsis
+  icon: build/icon.ico
+nsis:
+  artifactName: ${name}-${version}-setup.${ext}
+  shortcutName: ${productName}
+  uninstallDisplayName: ${productName}
+  createDesktopShortcut: always
+# electron-updater reads this to check/download new versions from GitHub Releases. Publishing a
+# release (electron-builder --publish always) needs a GH_TOKEN with repo access at build time —
+# checking for updates as an end user does not, GitHub Releases are public.
+publish:
+  provider: github
+  owner: pottz91
+  repo: ittop
+  # Publish straight to a real release instead of electron-builder's default draft — the
+  # release workflow already gates on tests/typecheck passing first, and a later step needs
+  # to find this release by its exact tag name (which a still-drafted "untagged-..." release
+  # doesn't have) to attach the VirusTotal report link.
+  releaseType: release
