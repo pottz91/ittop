@@ -2,8 +2,11 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Platform: Windows](https://img.shields.io/badge/platform-Windows-0078D6.svg)](#prerequisites)
+[![Release](https://github.com/pottz91/ittop/actions/workflows/release.yml/badge.svg)](https://github.com/pottz91/ittop/actions/workflows/release.yml)
+[![Latest release](https://img.shields.io/github/v/release/pottz91/ittop)](https://github.com/pottz91/ittop/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/pottz91/ittop/total)](https://github.com/pottz91/ittop/releases/latest)
 
-![ittop demo](docs/demo.gif)
+<p align="center"><img src="docs/demo.gif" alt="ittop demo" width="900"></p>
 
 **Run and manage multiple parallel [Claude Code](https://claude.com/claude-code) sessions on
 Windows, built for vibe coding.** Quick facts:
