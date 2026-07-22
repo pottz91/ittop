@@ -10,6 +10,11 @@ jobs:
     runs-on: windows-latest
     permissions:
       contents: write
+    # `secrets.*` isn't a recognized named-value inside step `if:` conditions (GitHub Actions
+    # error: "Unrecognized named-value: 'secrets'"). Mirror it into a job-level env var instead
+    # so the VirusTotal step can conditionally skip when the secret isn't configured.
+    env:
+      VT_API_KEY: ${{ secrets.VT_API_KEY }}
     steps:
       - uses: actions/checkout@v4
 
@@ -30,12 +35,10 @@ jobs:
 
       - name: Scan installer with VirusTotal
         id: virustotal
-        if: ${{ secrets.VT_API_KEY != '' }}
+        if: env.VT_API_KEY != ''
         run: |
           $installer = Get-ChildItem -Path dist -Filter *-setup.exe | Select-Object -First 1 -ExpandProperty FullName
           node scripts/scan-virustotal.mjs "$installer" | Out-File -Append -Encoding utf8 $env:GITHUB_OUTPUT
-        env:
-          VT_API_KEY: ${{ secrets.VT_API_KEY }}
 
       - name: Link VirusTotal report in the release notes
         if: steps.virustotal.outputs.vt_report_url

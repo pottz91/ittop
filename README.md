@@ -5,12 +5,14 @@
 [![Latest release](https://img.shields.io/github/v/release/pottz91/ittop)](https://github.com/pottz91/ittop/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/pottz91/ittop/total)](https://github.com/pottz91/ittop/releases/latest)
 
+### 📥 [Download the latest installer](https://github.com/pottz91/ittop/releases/latest)
+
 <p align="center"><img src="docs/demo.gif" alt="ittop demo" width="900"></p>
 
 **ittop organizes multiple parallel [Claude Code](https://claude.com/claude-code) sessions into
 Workspaces on Windows, built for vibe coding.** It's not a replacement for Claude Code, it's the
 missing layer around it. Each Terminal's start command is just a plain string, so it works just
-as well for Codex CLI, Aider, or any other terminal-based coding agent. Quick facts:
+as well for Codex CLI, Gemini CLI, or any other terminal-based coding agent. Quick facts:
 
 - 🪟 **Native Windows app** via ConPTY. No WSL, no `tmux`, no cloud account.
 - 🧩 **Workspaces group Terminals**: each Workspace holds any number of Terminals (own folder +
