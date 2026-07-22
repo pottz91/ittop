@@ -30,3 +30,8 @@ publish:
   provider: github
   owner: pottz91
   repo: ittop
+  # Publish straight to a real release instead of electron-builder's default draft — the
+  # release workflow already gates on tests/typecheck passing first, and a later step needs
+  # to find this release by its exact tag name (which a still-drafted "untagged-..." release
+  # doesn't have) to attach the VirusTotal report link.
+  draft: false
