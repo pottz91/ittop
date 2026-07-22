@@ -2,7 +2,6 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Platform: Windows](https://img.shields.io/badge/platform-Windows-0078D6.svg)](#prerequisites)
-[![Release](https://github.com/pottz91/ittop/actions/workflows/release.yml/badge.svg)](https://github.com/pottz91/ittop/actions/workflows/release.yml)
 [![Latest release](https://img.shields.io/github/v/release/pottz91/ittop)](https://github.com/pottz91/ittop/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/pottz91/ittop/total)](https://github.com/pottz91/ittop/releases/latest)
 
@@ -10,11 +9,12 @@
 
 **ittop organizes multiple parallel [Claude Code](https://claude.com/claude-code) sessions into
 Workspaces on Windows, built for vibe coding.** It's not a replacement for Claude Code, it's the
-missing layer around it. Quick facts:
+missing layer around it. Each Terminal's start command is just a plain string, so it works just
+as well for Codex CLI, Aider, or any other terminal-based coding agent. Quick facts:
 
 - 🪟 **Native Windows app** via ConPTY. No WSL, no `tmux`, no cloud account.
 - 🧩 **Workspaces group Terminals**: each Workspace holds any number of Terminals (own folder +
-  start command), opened tiled together with one click.
+  start command, so any CLI agent works, not just `claude`), opened tiled together with one click.
 - 🟢 **Live status per session** + a desktop notification the moment one is waiting on you.
 - 📁 **Built-in file explorer** with Markdown/HTML preview, no alt-tabbing to VS Code.
 - 🎙️ **Works with voice dictation tools** (Wispr Flow, Windows Voice Access, Spokenly, etc.):

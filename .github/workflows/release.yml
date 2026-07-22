@@ -39,6 +39,7 @@ jobs:
 
       - name: Link VirusTotal report in the release notes
         if: steps.virustotal.outputs.vt_report_url
-        run: gh release edit "${{ github.ref_name }}" --notes "Installer scanned with VirusTotal: ${{ steps.virustotal.outputs.vt_report_url }}"
+        run: |
+          gh release edit "${{ github.ref_name }}" --notes "Installer scanned with VirusTotal: ${{ steps.virustotal.outputs.vt_report_url }}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
