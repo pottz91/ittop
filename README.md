@@ -16,6 +16,12 @@ Runs natively on Windows via [ConPTY](https://learn.microsoft.com/en-us/windows/
 **No WSL, no tmux, no cloud account required.** Everything is local: your sessions, your
 project paths, your data.
 
+## Screenshots
+
+| Multiple terminals, one Workspace | Settings | Keyboard shortcuts |
+| --- | --- | --- |
+| ![Multiple terminals tiled inside one Workspace](docs/screenshot-main.png) | ![Settings modal with theme picker, hooks, and backup](docs/screenshot-settings.png) | ![Keyboard shortcuts overview](docs/screenshot-shortcuts.png) |
+
 ## Why ittop over a tmux-based session manager or a hosted GUI
 
 Most Claude Code / AI coding agent session managers fall into one of two camps: a `tmux`-wrapping
