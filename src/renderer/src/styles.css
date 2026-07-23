@@ -751,12 +751,26 @@ body,
   color: var(--mono-accent);
 }
 
-.file-tree-icon {
-  width: 12px;
+.file-tree-chevron {
+  width: 10px;
   flex-shrink: 0;
   color: var(--text-dim);
   font-size: 9px;
   text-align: center;
+}
+
+.file-tree-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: var(--text-dim);
+}
+
+.file-tree-row.selected .file-tree-icon {
+  color: var(--mono-accent);
 }
 
 .file-tree-name {

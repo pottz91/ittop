@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import type { FileEntry } from '../../../shared/types'
 import { useAppStore } from '../store/useAppStore'
 import FilePreviewContent, { fileName } from './FilePreviewContent'
+import FileIcon from './FileIcon'
 
 interface Props {
   onClose: () => void
@@ -35,7 +36,10 @@ function TreeNode({
         style={{ paddingLeft: 10 + depth * 14 }}
         onClick={() => (entry.isDirectory ? onToggle(entry.path) : onSelectFile(entry.path))}
       >
-        <span className="file-tree-icon">{entry.isDirectory ? (isOpen ? '▾' : '▸') : '·'}</span>
+        <span className="file-tree-chevron">{entry.isDirectory ? (isOpen ? '▾' : '▸') : ''}</span>
+        <span className="file-tree-icon">
+          <FileIcon name={entry.name} isDirectory={entry.isDirectory} isOpen={isOpen} />
+        </span>
         <span className="file-tree-name">{entry.name}</span>
       </div>
       {isOpen && dirState?.status === 'loading' && (
