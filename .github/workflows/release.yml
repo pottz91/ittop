@@ -28,6 +28,19 @@ jobs:
 
       - run: npm test
 
+      # electron-builder 26.x has a race condition when uploading assets in parallel: two
+      # concurrent "does the release exist" checks can both see "no" and both try to create it,
+      # and the second POST fails with 422 already_exists, aborting before all assets upload.
+      # Pre-create the release here so electron-builder only ever has to upload assets to it.
+      - name: Ensure GitHub release exists
+        run: |
+          gh release view "${{ github.ref_name }}" --repo ${{ github.repository }}
+          if ($LASTEXITCODE -ne 0) {
+            gh release create "${{ github.ref_name }}" --repo ${{ github.repository }} --title "${{ github.ref_name }}" --notes ""
+          }
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build and publish
         run: npm run build:win -- --publish always
         env:
