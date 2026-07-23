@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    # `secrets.*` isn't a recognized named-value inside step `if:` conditions (GitHub Actions
+    # error: "Unrecognized named-value: 'secrets'"). Mirror it into a job-level env var instead
+    # so the VirusTotal step can conditionally skip when the secret isn't configured.
+    env:
+      VT_API_KEY: ${{ secrets.VT_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm ci
+
+      - run: npm run typecheck
+
+      - run: npm test
+
+      - name: Build and publish
+        run: npm run build:win -- --publish always
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Scan installer with VirusTotal
+        id: virustotal
+        if: env.VT_API_KEY != ''
+        run: |
+          $installer = Get-ChildItem -Path dist -Filter *-setup.exe | Select-Object -First 1 -ExpandProperty FullName
+          node scripts/scan-virustotal.mjs "$installer" | Out-File -Append -Encoding utf8 $env:GITHUB_OUTPUT
+
+      - name: Link VirusTotal report in the release notes
+        if: steps.virustotal.outputs.vt_report_url
+        run: |
+          gh release edit "${{ github.ref_name }}" --notes "Installer scanned with VirusTotal: ${{ steps.virustotal.outputs.vt_report_url }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
