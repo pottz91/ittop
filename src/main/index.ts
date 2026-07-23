@@ -1,4 +1,4 @@
-import { app, shell, BrowserWindow, ipcMain, dialog, Notification, session } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, dialog, Notification, session, Tray, Menu, nativeImage } from 'electron'
 import { join } from 'path'
 import { pathToFileURL } from 'url'
 import { readFileSync, writeFileSync, promises as fsPromises } from 'fs'
@@ -35,6 +35,46 @@ if (process.env.ITTOP_USER_DATA_DIR) {
 }
 
 let mainWindow: BrowserWindow | null = null
+let tray: Tray | null = null
+// ittop's whole point is keeping sessions alive in the background — closing the window (the X
+// button, Alt+F4, ...) minimizes to the tray instead of quitting. This flag distinguishes that
+// from a real quit (tray menu "Quit", or the app quitting for another reason), so the window's
+// own 'close' handler knows whether to hide or actually let the close proceed.
+let isQuitting = false
+
+function createTray(): void {
+  const trayIcon = nativeImage.createFromPath(icon).resize({ width: 16, height: 16 })
+  tray = new Tray(trayIcon)
+  tray.setToolTip('ittop')
+  tray.setContextMenu(
+    Menu.buildFromTemplate([
+      {
+        label: 'Open ittop',
+        click: () => {
+          mainWindow?.show()
+          mainWindow?.focus()
+        }
+      },
+      { type: 'separator' },
+      {
+        label: 'Quit',
+        click: () => {
+          isQuitting = true
+          app.quit()
+        }
+      }
+    ])
+  )
+  tray.on('click', () => {
+    if (!mainWindow) return
+    if (mainWindow.isVisible()) {
+      mainWindow.hide()
+    } else {
+      mainWindow.show()
+      mainWindow.focus()
+    }
+  })
+}
 
 const store = new Store()
 const statusManager = new StatusManager()
@@ -174,13 +214,18 @@ function createWindow(): void {
     mainWindow.webContents.openDevTools({ mode: 'detach' })
   }
 
-  mainWindow.on('close', () => {
+  mainWindow.on('close', (event) => {
     if (!mainWindow) return
     const maximized = mainWindow.isMaximized()
     // getBounds() while maximized returns the maximized size, not the restorable windowed
     // size — save the pre-maximize bounds instead so un-maximizing later isn't full-screen.
     const { x, y, width, height } = maximized ? mainWindow.getNormalBounds() : mainWindow.getBounds()
     persistSettings({ windowBounds: { x, y, width, height, maximized } })
+
+    if (!isQuitting) {
+      event.preventDefault()
+      mainWindow.hide()
+    }
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
@@ -607,6 +652,7 @@ app.whenReady().then(() => {
   hookServer.start()
   gitPoller.start()
   createWindow()
+  createTray()
 
   // Silent background check a few seconds after launch — errors/no-update states are only
   // surfaced when the user opens Settings themselves, this just gets the "update available"
@@ -624,6 +670,7 @@ app.on('window-all-closed', () => {
 
 let quitting = false
 app.on('before-quit', async (event) => {
+  isQuitting = true
   if (quitting) return
   event.preventDefault()
   quitting = true
