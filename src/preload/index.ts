@@ -99,6 +99,11 @@ const api = {
     ipcRenderer.on(IPC.terminalFocusRequest, listener)
     return () => ipcRenderer.removeListener(IPC.terminalFocusRequest, listener)
   },
+  onOpenSettingsRequest: (callback: () => void) => {
+    const listener = (): void => callback()
+    ipcRenderer.on(IPC.openSettingsRequest, listener)
+    return () => ipcRenderer.removeListener(IPC.openSettingsRequest, listener)
+  },
   onHookEvent: (callback: (hookEventName: string, receivedAt: number) => void) => {
     const listener = (
       _event: Electron.IpcRendererEvent,

@@ -22,6 +22,7 @@ export default function App(): React.JSX.Element {
   const markHookEventReceived = useAppStore((s) => s.markHookEventReceived)
   const focusTerminal = useAppStore((s) => s.focusTerminal)
   const updateAppSettings = useAppStore((s) => s.updateAppSettings)
+  const setSettingsModalOpen = useAppStore((s) => s.setSettingsModalOpen)
   const dragPaneIdRef = useRef<string | null>(null)
   const panesRef = useRef<HTMLDivElement>(null)
   const columnCellRefs = useRef<Map<number, HTMLDivElement>>(new Map())
@@ -76,11 +77,13 @@ export default function App(): React.JSX.Element {
     const unsubBranch = window.api.onGitBranchChanged((id, branch) => setGitBranch(id, branch))
     const unsubFocus = window.api.onTerminalFocusRequest((id) => focusTerminal(id))
     const unsubHook = window.api.onHookEvent((_name, receivedAt) => markHookEventReceived(receivedAt))
+    const unsubSettings = window.api.onOpenSettingsRequest(() => setSettingsModalOpen(true))
     return () => {
       unsubStatus()
       unsubBranch()
       unsubFocus()
       unsubHook()
+      unsubSettings()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

@@ -73,6 +73,8 @@ hosted/commercial GUI with cloud sync and subscription tiers. ittop is neither:
   into its own resizable window.
 - **Keyboard shortcuts**: `Ctrl+1`…`Ctrl+9` jump to a Workspace, `Ctrl+N` new Workspace,
   `Ctrl+K` command palette, arrow keys to cycle Workspaces.
+- **Lives in the system tray**: closing the window keeps every session running in the
+  background instead of quitting. Tray menu: Open, Check for updates, Quit.
 - **5 themes** (Dark, Light, Dracula, Nord, Solarized), full settings + Workspace backup/restore
   (export/import as JSON), auto-updates via GitHub Releases.
 - On restart, you're asked whether to relaunch the previously active session (Claude Code

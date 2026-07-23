@@ -120,6 +120,7 @@ export const IPC = {
   hookServerInfo: 'hooks:getServerInfo',
   hookEventReceived: 'hooks:eventReceived',
   terminalFocusRequest: 'terminal:focusRequest',
+  openSettingsRequest: 'app:openSettingsRequest',
 
   showNotification: 'notification:show',
 

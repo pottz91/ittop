@@ -55,6 +55,15 @@ function createTray(): void {
           mainWindow?.focus()
         }
       },
+      {
+        label: 'Check for updates',
+        click: () => {
+          mainWindow?.show()
+          mainWindow?.focus()
+          mainWindow?.webContents.send(IPC.openSettingsRequest)
+          void updater.checkForUpdates()
+        }
+      },
       { type: 'separator' },
       {
         label: 'Quit',
